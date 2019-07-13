@@ -1,0 +1,144 @@
+<!--<!doctype html>
+<html>
+
+<head>
+    <title>Edit comment </title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 80px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <table>
+            <% allusers.forEach(function(user) { %>
+            <tr>
+                <td> <%= user.name %></td>
+                <td>
+                    <form method="GET" action="/edituserasadmin/<%= user._id %>">
+                        <button class="btn btn-danger btn-block mt-4">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="/deleteUser/<%= user._id %>">
+                        <button class="btn btn-danger btn-block mt-4">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<title>Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Poppins", sans-serif
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    nav {
+        margin-left: 25%
+    }
+</style>
+
+<body>
+
+    <!-- Sidebar/menu  -->
+    <div class="w3-sidebar w3-black w3-top w3-medium w3-padding" style="z-index:3;width:25%;font-weight:bold;"
+        id="mySidebar"><br>
+
+        <div class="w3-container">
+            <h3 class="w3-padding-64"><b><%- users.name %><br><%- users.job %></b></h3>
+        </div>
+        <div class="w3-bar-block">
+            <a href="/edit" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Edit credentials</a>
+            <a href="/unlink/local" class="w3-bar-item w3-button w3-hover-white">Change login credentials</a>
+            <a href="/submit" class="w3-bar-item w3-button w3-hover-white">Submit file</a>
+            <a href="/profile" class="w3-bar-item w3-button w3-hover-white">Profile</a>
+            <a href="/logout" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+        </div>
+    </div>
+    <div class="w3-top">
+        <%include ../public/navbar.html %>
+    </div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:25%;margin-right:40px">
+        <!-- content -->
+        <div class="w3-container" style="margin-left:22%;margin-top:150px;margin-right:10%">
+
+            <table class="w3-table-all w3-card-2" style="width:70%; margin-left:2%">
+                <thead>
+                    <tr class="w3-black">
+                        <th>Name</th>
+                        <th>Edit / Delete</th>
+                    </tr>
+                </thead>
+                
+                <% allusers.forEach(function(user) { %>
+                    <% if (user._id.equals(users._id)) { %>
+                        <tr>
+                            <td> <%- user.name %></td>
+                            <td>
+                                <form method="GET" action="/edituserasadmin/<%= user._id %>" style='float: left'>
+                                    <button class="w3-button w3-tiny w3-blue w3-round w3-hover-black ">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }else{ %>
+                    <tr>
+                        <td> <%- user.name %></td>
+                        <td>
+                            <form method="GET" action="/edituserasadmin/<%= user._id %>" style='float: left'>
+                                <button class="w3-button w3-tiny w3-blue w3-round w3-hover-black ">Edit</button>
+                            </form>
+                            <form method="POST" action="/deleteUser/<%= user._id %>" style='float: left; margin-left: 2px'>
+                                <button class="w3-button w3-tiny w3-red w3-round w3-hover-black">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+            <% }) %>
+            </table>
+
+            <!-- End page content -->
+        </div>
+    </div>
+
+</body>
+
+</html>

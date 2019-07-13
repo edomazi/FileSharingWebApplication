@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Edit profile</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"> 
+        <div class="col-sm-6 col-sm-offset-3">
+
+            <h1><span class="fa fa-sign-in"></span> Edit</h1>
+
+            <form onsubmit="return validation()" action="/edituserasadmin/<%= user._id %>" method="post">
+                <div class="form-group">
+                    <label>Full name</label>
+                    <input type="text" class="form-control" name="editname" id="editname" value="<%- user.name %>" required />
+                    <span id="nameerror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>University</label>
+                    <input type="text" class="form-control" name="edituni" id="edituni" value="<%- user.university %>" required/>
+                    <span id="unierror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Job</label>
+                    <input type="text" class="form-control" name="editjob" id="editjob" value="<%- user.job %>"  required/>
+                    <span id="joberror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                  <label>Points</label>
+                  <input type="text" class="form-control" name="editpoints" id="editpoints" value="<%- user.points %>"  required/>
+                  <span id="pointserror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>File size limit (in bytes) </label>
+                    <input type="text" class="form-control" name="editfilesize" id="editfilesize" value="<%- user.filesizelimit %>" required/>
+                    <span id="sizeerror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <input type="text" class="form-control" name="editrole" id="editrole" value="<%- user.role %>" required/>
+                    <span id="roleerror" class="w3-text-red"> </span>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" name="editphone" id="editphone" value="<%- user.phone %>" required/>
+                    <span id="phoneerror" class="w3-text-red"> </span>
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-lg">Edit</button>
+            </form>
+
+            <hr>
+
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+
+
+        function validation() {
+    
+          var user = document.getElementById('editname').value;
+          var uni = document.getElementById('edituni').value;
+          var job = document.getElementById('editjob').value;
+          var points = document.getElementById('editpoints').value;
+          var role = document.getElementById('editrole').value;
+          var size = document.getElementById('editfilesize').value;
+          var mobileNumber = document.getElementById('editphone').value;
+    
+          if (!isNaN(user)) {
+            document.getElementById('nameerror').innerHTML = "Only characters are allowed";
+            return false;
+          }
+          if (user.length > 60) {
+            document.getElementById('nameerror').innerHTML = "Name must contain less than 60 characters";
+            return false;
+          }
+          if (uni.length > 70) {
+            document.getElementById('unierror').innerHTML = "University name must contain less than 60 characters";
+            return false;
+          }
+          if (job.length > 60) {
+            document.getElementById('joberror').innerHTML = "Job must contain less than 60 characters";
+            return false;
+          }
+          if (isNaN(points)) {
+            document.getElementById('pointserror').innerHTML = "Points number must contain only digits";
+            return false;
+          }
+          if (isNaN(size)) {
+            document.getElementById('sizeerror').innerHTML = "File size number must contain only digits";
+            return false;
+          }
+          if (isNaN(mobileNumber)) {
+            document.getElementById('phoneerror').innerHTML = "Mobile number must contain only digits";
+            return false;
+          }
+          if (mobileNumber.length != 10) {
+            document.getElementById('phoneerror').innerHTML = "Mobile number must be 10 digits only";
+            return false;
+          }
+        }
+    
+      </script>
+</body>
+
+</html>

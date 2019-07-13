@@ -1,0 +1,289 @@
+<!--<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+
+    <style>
+        body {
+            padding-left: 80px;
+            padding-right: 80px;
+            padding-top: 10px;
+            background: #F1F3FA;
+        }
+
+        /* Profile container */
+        .profile {
+            margin: 20px 0;
+        }
+
+        /* Profile sidebar */
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+        }
+
+        .profile-userpic img {
+            float: none;
+            margin: 0 auto;
+            width: 50%;
+            height: 50%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+
+        .profile-usertitle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-usertitle-name {
+            color: #5a7391;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .profile-usertitle-job {
+            text-transform: uppercase;
+            color: #5b9bd1;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-userbuttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+        .profile-usermenu {
+            margin-top: 30px;
+        }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .profile-usermenu ul li a i {
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            background-color: #fafcfd;
+            color: #5b9bd1;
+        }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+
+        /* Profile Content */
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+    </style>
+</head>
+
+<body>
+    <%include ../public/navbar.html %>
+    <div class="container">
+        <div class="row profile">
+            <div class="col-md-3">
+                <div class="profile-sidebar">
+                    <!-- SIDEBAR USER TITLE --
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">
+                            <%= users.name %>
+                        </div>
+                        <div class="profile-usertitle-job">
+                            <%= users.job %>
+                        </div>
+                    </div>
+                   
+                    <div class="profile-usermenu">
+                        <ul class="list">
+                            <li>
+                                <a href="/edit">Edit credentials </a>
+                            </li>
+                            <li>
+                                <a href="/unlink/local">Change login credentials </a>
+                            </li>
+                            <li>
+                                <a href="logout">Logout </a>
+                            </li>
+                            <li>
+                                <a href="submit">Submit file </a>
+                            </li>
+                            <% if (users.role === "admin") { %>
+                                <li>
+                                    <a href="/alluserslist">Users list </a>
+                                </li>
+                                <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-6 m-auto">
+                            <h1 class="text-center display-4 my-4">My files</h1>
+                            <hr>
+                            <% if(files){ %>
+                            <% files.forEach(function(file) { %>
+                            <div class="card card-body mb-3">
+                                <%= file.filename %>
+                                <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                                    <button class="btn btn-danger btn-block mt-4">Delete</button>
+                                </form>
+                            </div>
+                            <% })} else { %>
+                            <p>You haven t uploaded any file yet</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<title>Profile</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Poppins", sans-serif
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    nav {
+        margin-left: 25%
+    }
+</style>
+
+<body>
+
+    <!-- Sidebar/menu  -->
+    <div class="w3-sidebar w3-black w3-top w3-medium w3-padding" style="z-index:3;width:25%;font-weight:bold;"
+        id="mySidebar"><br>
+
+        <div class="w3-container">
+            <h3 class="w3-padding-64"><b><%- users.name %><br><%- users.job %><br><br><h6>You have <%-users.points %> points</h6></b></h3>
+            
+        </div>
+        <div class="w3-bar-block">
+            <a href="/edit" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Edit credentials</a>
+            <a href="/unlink/local" class="w3-bar-item w3-button w3-hover-white">Change login credentials</a>
+            <a href="/submit" class="w3-bar-item w3-button w3-hover-white">Submit file</a>
+                <% if (users.role === "admin") { %>
+                    <a href="/alluserslist" class="w3-bar-item w3-button w3-hover-white">Users list</a>
+                <% } %>
+            <a href="/logout" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+        </div>
+    </div>
+    <div class="w3-top">
+        <%include ../public/navbar.html %>
+    </div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:25%;margin-right:40px">
+        <!-- Designers -->
+        <div class="w3-container" id="designers" style="margin-left:25%;margin-top:120px">
+            <% if(files){ %>
+            <% files.forEach(function(file) { %>
+            <!-- The Files -->
+            <div class="w3-card-2" style="width:70%">
+                <header class="w3-container w3-light-grey">
+                    <h3 class="w3-center"><%= file.filename %> </h3>
+                </header>
+                <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                    <button class="w3-button w3-block w3-black">Delete</button>
+                </form>
+            </div> <br><br>
+            <% })} else { %>
+            <p>You haven't uploaded any file yet. Please <a href="/submit">submit</a> a file</p>
+            <% } %>
+            <!-- End page content -->
+        </div>
+    </div>
+
+</body>
+
+</html>

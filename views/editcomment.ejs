@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Edit comment </title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body {
+            padding-top: 80px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form method="POST" action="/Editcomment/<%= commentID %> ">
+            <input type="hidden" name="id" value="<%= fileID %>" />
+            <textarea rows="4" cols="50" name="editcomment" id="editcomment" ><%= commentdata %></textarea>
+            <button type="submit">Submit comment</button>
+        </form>
+    </div>
+</body>
+
+</html>
